@@ -6,7 +6,7 @@ Docco
 It produces an HTML document that displays your comments intermingled with your
 code. All prose is passed through
 [Markdown](http://daringfireball.net/projects/markdown/syntax), and code is
-passed through [Highlight.js](http://highlightjs.org/) syntax highlighting.
+passed through [Prism.js](http://prismjs.com/) syntax highlighting.
 This page is the result of running Docco against its own
 [source file](https://github.com/jashkenas/docco/blob/master/docco.litcoffee).
 
@@ -25,7 +25,7 @@ Docco can be used to process code written in any programming language. If it
 doesn't handle your favorite yet, feel free to
 [add it to the list](https://github.com/jashkenas/docco/blob/master/resources/languages.json).
 Finally, the ["literate" style](http://coffeescript.org/#literate) of *any*
-language listed in [languages.json](https://github.com/jashkenas/docco/blob/master/resources/languages.json) 
+language listed in [languages.json](https://github.com/jashkenas/docco/blob/master/resources/languages.json)
 is also supported — just tack an `.md` extension on the end:
 `.coffee.md`, `.py.md`, and so on.
 
@@ -151,7 +151,7 @@ normal below.
 
       sections
 
-To **format** and highlight the now-parsed sections of code, we use **Highlight.js**
+To **format** and highlight the now-parsed sections of code, we use **Prism.js**
 over stdio, and run the text of their corresponding comments through
 **Markdown**, using [Marked](https://github.com/chjj/marked).
 
@@ -176,15 +176,15 @@ if not specified.
         highlight: (code, lang) ->
           lang or= language.name
 
-          if highlightjs.getLanguage(lang)
-            highlightjs.highlight(lang, code).value
+          if Prism.getLanguage(lang)
+            Prism.highlight(code, Prism.languages[lang], lang)
           else
             console.warn "docco: couldn't highlight code block with unknown language '#{lang}' in #{source}"
             code
       }
 
       for section, i in sections
-        code = highlightjs.highlight(language.name, section.codeText).value
+        code = Prism.highlight(section.codeText, Prism.languages[language.name], language.name)
         code = code.replace(/\s+$/, '')
         section.codeHtml = "<div class='highlight'><pre>#{code}</pre></div>"
         section.docsHtml = marked(section.docsText)
@@ -282,7 +282,7 @@ Require our external dependencies.
     path        = require 'path'
     marked      = require 'marked'
     commander   = require 'commander'
-    highlightjs = require 'highlight.js'
+    Prism       = require 'prismjs'
 
 Languages are stored in JSON in the file `resources/languages.json`.
 Each item maps the file extension to the name of the language and the
@@ -290,6 +290,9 @@ Each item maps the file extension to the name of the language and the
 language to Docco, just add it to the file.
 
     languages = JSON.parse fs.readFileSync(path.join(__dirname, 'resources', 'languages.json'))
+
+Load prism languages.
+    Prism.loadLanguages()
 
 Build out the appropriate matchers and delimiters for each language.
 

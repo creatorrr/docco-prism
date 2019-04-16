@@ -342,7 +342,7 @@ ul.sections > li > div {
     position: absolute;
     top: 3px; left: -20px;
     padding: 1px 2px;
-    opacity: 0;
+    opacity: 0 !important;
     -webkit-transition: opacity 0.2s linear;
   }
     .for-h1 .ss {
@@ -353,7 +353,7 @@ ul.sections > li > div {
     }
 
   ul.sections > li > div.annotation:hover .ss {
-    opacity: 1;
+    opacity: 1 !important;
   }
 }
 

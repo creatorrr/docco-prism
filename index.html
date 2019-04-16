@@ -50,7 +50,7 @@ Finally, the <a href="http://coffeescript.org/#literate">“literate” style</a
 language listed in <a href="https://github.com/jashkenas/docco/blob/master/resources/languages.json">languages.json</a> 
 is also supported — just tack an <code>.md</code> extension on the end:
 <code>.coffee.md</code>, <code>.py.md</code>, and so on.</p>
-<h2 id="partners-in-crime-">Partners in Crime:</h2>
+<h2 id="partners-in-crime">Partners in Crime:</h2>
 
         
       
@@ -69,7 +69,7 @@ also by Mr. Tomayko.</p>
 <a href="http://github.com/fitzgen">Nick Fitzgerald</a>‘s <a href="https://pycco-docs.github.io/pycco/">Pycco</a>.</p>
 </li>
 <li><p>For <strong>Clojure</strong> fans, <a href="http://blog.fogus.me/">Fogus</a>‘s
-<a href="https://gdeer81.github.io/marginalia/">Marginalia</a> is a bit of a departure from
+<a href="http://fogus.me/fun/marginalia/">Marginalia</a> is a bit of a departure from
 “quick-and-dirty”, but it’ll get the job done.</p>
 </li>
 <li><p>There’s a <strong>Go</strong> port called <a href="http://nikhilm.github.io/gocco/">Gocco</a>,
@@ -329,7 +329,7 @@ is only copied for the latter.</p>
         
       
         
-        <h2 id="helpers-initial-setup">Helpers &amp; Initial Setup</h2>
+        <h2 id="helpers--initial-setup">Helpers &amp; Initial Setup</h2>
 
         
       
@@ -389,7 +389,8 @@ file extension. Detect and tag “literate” <code>.ext.md</code> variants.</p>
   lang = config.languages?[ext] <span class="hljs-keyword">or</span> languages[ext]
   <span class="hljs-keyword">if</span> lang <span class="hljs-keyword">and</span> lang.name <span class="hljs-keyword">is</span> <span class="hljs-string">'markdown'</span>
     codeExt = path.extname(path.basename(source, ext))
-    <span class="hljs-keyword">if</span> codeExt <span class="hljs-keyword">and</span> codeLang = languages[codeExt]
+    codeLang = config.languages?[codeExt] <span class="hljs-keyword">or</span> languages[codeExt]
+    <span class="hljs-keyword">if</span> codeExt <span class="hljs-keyword">and</span> codeLang
       lang = _.extend {}, codeLang, {literate: <span class="hljs-literal">yes</span>}
   lang</pre></div>
         
